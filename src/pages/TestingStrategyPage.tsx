@@ -60,9 +60,9 @@ const TestingStrategyPage = () => {
     {
       category: 'Performance Testing',
       tools: [
-        { name: 'Lighthouse', purpose: 'Performance auditing', type: 'Essential' },
-        { name: 'K6', purpose: 'Modern load testing', type: 'Essential' },
-        { name: 'JMeter', purpose: 'Load testing', type: 'Advanced' }
+        { name: 'Lighthouse', purpose: 'Core Web Vitals auditing', type: 'Essential' },
+        { name: 'WebPageTest', purpose: 'Detailed performance analysis', type: 'Essential' },
+        { name: 'Chrome DevTools', purpose: 'Performance profiling', type: 'Essential' }
       ]
     },
     {
@@ -72,63 +72,49 @@ const TestingStrategyPage = () => {
         { name: 'WAVE', purpose: 'Web accessibility evaluation', type: 'Essential' },
         { name: 'Lighthouse', purpose: 'Accessibility auditing', type: 'Essential' }
       ]
+    },
+    {
+      category: 'Responsive Testing',
+      tools: [
+        { name: 'Browser DevTools', purpose: 'Viewport testing', type: 'Essential' },
+        { name: 'Responsive Design Mode', purpose: 'Multi-device simulation', type: 'Essential' },
+        { name: 'BrowserStack', purpose: 'Real device testing', type: 'Advanced' }
+      ]
     }
   ]
 
   const testingPhases = [
     {
-      phase: 'Requirements Analysis & Test Planning',
-      duration: '1-2 weeks',
-      activities: [
-        'Analyze functional and non-functional requirements',
-        'Create comprehensive test plan',
-        'Define test scope and strategy',
-        'Allocate resources and timelines',
-        'Assess risks and critical areas'
-      ]
-    },
-    {
       phase: 'Test Design & Development',
       duration: '2-3 weeks',
       activities: [
-        'Design test cases and scenarios',
-        'Set up test automation framework',
-        'Create test data management strategy',
-        'Implement CI/CD integration',
-        'Establish reporting mechanisms'
+        'Design React component test cases',
+        'Set up Playwright/Cypress E2E framework',
+        'Create visual regression test strategy',
+        'Implement Jest + Testing Library setup',
+        'Establish CI/CD integration with GitHub Actions'
       ]
     },
     {
       phase: 'Test Environment Setup',
       duration: '1 week',
       activities: [
-        'Configure testing environments',
-        'Set up browser and device testing',
-        'Implement monitoring tools',
-        'Create test data sets',
-        'Establish access controls'
+        'Configure cross-browser testing environments',
+        'Set up responsive design testing',
+        'Implement Core Web Vitals monitoring',
+        'Create test data management for web apps',
+        'Establish accessibility testing tools'
       ]
     },
     {
       phase: 'Test Execution',
       duration: 'Ongoing',
       activities: [
-        'Execute automated test suites',
-        'Perform manual testing activities',
-        'Conduct exploratory testing',
-        'Monitor test results and metrics',
-        'Manage defect lifecycle'
-      ]
-    },
-    {
-      phase: 'Defect Management',
-      duration: 'Ongoing',
-      activities: [
-        'Track and prioritize defects',
-        'Coordinate with development team',
-        'Verify defect fixes',
-        'Analyze defect trends',
-        'Implement preventive measures'
+        'Execute automated E2E test suites',
+        'Perform cross-browser compatibility testing',
+        'Conduct responsive design testing',
+        'Monitor Core Web Vitals performance',
+        'Execute accessibility compliance testing'
       ]
     },
     {
@@ -136,10 +122,10 @@ const TestingStrategyPage = () => {
       duration: 'Ongoing',
       activities: [
         'Generate test execution reports',
-        'Analyze quality metrics',
-        'Provide release recommendations',
-        'Identify process improvements',
-        'Share insights with stakeholders'
+        'Analyze Core Web Vitals metrics',
+        'Track cross-browser compatibility issues',
+        'Monitor accessibility compliance scores',
+        'Document front-end testing best practices'
       ]
     }
   ]
@@ -300,19 +286,19 @@ const TestingStrategyPage = () => {
           <div className="space-y-3">
             <div className="flex items-start">
               <span className="text-blue-600 mr-3 mt-1">✓</span>
-              <span className="text-gray-700">Focus on risk-based testing approach</span>
+              <span className="text-gray-700">Test React components in isolation</span>
             </div>
             <div className="flex items-start">
               <span className="text-blue-600 mr-3 mt-1">✓</span>
-              <span className="text-gray-700">Involve entire team in quality assurance</span>
+              <span className="text-gray-700">Prioritize Core Web Vitals performance</span>
             </div>
             <div className="flex items-start">
               <span className="text-blue-600 mr-3 mt-1">✓</span>
-              <span className="text-gray-700">Continuously improve testing process</span>
+              <span className="text-gray-700">Test across multiple browsers and devices</span>
             </div>
             <div className="flex items-start">
               <span className="text-blue-600 mr-3 mt-1">✓</span>
-              <span className="text-gray-700">Measure and track testing effectiveness</span>
+              <span className="text-gray-700">Implement visual regression testing</span>
             </div>
           </div>
         </div>
