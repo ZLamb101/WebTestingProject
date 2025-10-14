@@ -2,6 +2,8 @@
 
 A modern, responsive blog website built with React, Vite, TypeScript, and Tailwind CSS. This project showcases software testing expertise and serves as a professional portfolio.
 
+**Live Demo**: https://zlamb101.github.io/WebTestingProject
+
 ## 🚀 Features
 
 - **Responsive Design**: Modern, mobile-first design using Tailwind CSS
