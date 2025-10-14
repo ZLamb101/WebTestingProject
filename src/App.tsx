@@ -1,4 +1,4 @@
-import { HashRouter as Router, Routes, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Layout from './components/Layout'
 import HomePage from './pages/HomePage'
 import PostsPage from './pages/PostsPage'
@@ -6,7 +6,7 @@ import ProjectsPage from './pages/ProjectsPage'
 
 function App() {
   return (
-    <Router>
+    <Router basename="/WebTestingProject">
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />

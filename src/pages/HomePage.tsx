@@ -28,6 +28,11 @@ const HomePage = () => {
 
   return (
     <div className="space-y-12">
+      {/* Debug info */}
+      <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+        <strong>Debug Info:</strong> HomePage component is rendering! Current URL: {window.location.href}
+      </div>
+
       {/* Hero Section */}
       <section className="text-center">
         <div className="space-y-4">
