@@ -1,79 +1,7 @@
 import { Link } from 'react-router-dom'
+import { projects, projectCategories } from '../data/content'
 
 const ProjectsPage = () => {
-  // Sample data - you can replace this with real data later
-  const projects = [
-    {
-      id: 1,
-      title: "E-commerce Test Automation Suite",
-      description: "Comprehensive test automation framework for e-commerce platforms using Playwright and TypeScript. Includes UI tests, API tests, and performance tests.",
-      technologies: ["Playwright", "TypeScript", "Jest", "Docker"],
-      category: "Test Automation",
-      status: "Completed",
-      githubUrl: "#",
-      demoUrl: "#",
-      image: "/api/placeholder/400/250",
-      features: [
-        "Cross-browser testing",
-        "API integration testing", 
-        "Performance monitoring",
-        "CI/CD integration"
-      ]
-    },
-    {
-      id: 2,
-      title: "API Testing Framework",
-      description: "A robust API testing framework built with Postman and Newman, featuring automated test execution and comprehensive reporting.",
-      technologies: ["Postman", "Newman", "JavaScript", "Jenkins"],
-      category: "API Testing",
-      status: "In Progress",
-      githubUrl: "#",
-      demoUrl: "#",
-      image: "/api/placeholder/400/250",
-      features: [
-        "Automated test execution",
-        "Dynamic test data generation",
-        "Comprehensive reporting",
-        "Environment management"
-      ]
-    },
-    {
-      id: 3,
-      title: "Mobile App Testing Toolkit",
-      description: "A comprehensive testing toolkit for mobile applications, supporting both iOS and Android platforms with Appium and TestNG.",
-      technologies: ["Appium", "TestNG", "Java", "Selenium Grid"],
-      category: "Mobile Testing",
-      status: "Completed",
-      githubUrl: "#",
-      demoUrl: "#",
-      image: "/api/placeholder/400/250",
-      features: [
-        "Cross-platform testing",
-        "Real device testing",
-        "Parallel execution",
-        "Detailed reporting"
-      ]
-    },
-    {
-      id: 4,
-      title: "Performance Testing Dashboard",
-      description: "A web-based dashboard for monitoring and analyzing performance test results using JMeter and custom reporting tools.",
-      technologies: ["JMeter", "React", "Node.js", "MongoDB"],
-      category: "Performance Testing",
-      status: "Planning",
-      githubUrl: "#",
-      demoUrl: "#",
-      image: "/api/placeholder/400/250",
-      features: [
-        "Real-time monitoring",
-        "Historical data analysis",
-        "Custom metrics",
-        "Alert system"
-      ]
-    }
-  ]
-
-  const categories = ["All", "Test Automation", "API Testing", "Mobile Testing", "Performance Testing"]
 
   return (
     <div className="space-y-8">
@@ -89,7 +17,7 @@ const ProjectsPage = () => {
       <div className="bg-white rounded-lg shadow-sm p-6">
         <h2 className="text-lg font-semibold text-gray-900 mb-4">Filter by Category</h2>
         <div className="flex flex-wrap gap-2">
-          {categories.map((category) => (
+          {projectCategories.map((category) => (
             <button
               key={category}
               className="px-4 py-2 text-sm font-medium rounded-full border border-gray-300 text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-colors"

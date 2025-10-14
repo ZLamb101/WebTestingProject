@@ -1,30 +1,7 @@
 import { Link } from 'react-router-dom'
+import { recentPosts } from '../data/content'
 
 const HomePage = () => {
-  // Sample data - you can replace this with real data later
-  const recentPosts = [
-    {
-      id: 1,
-      title: "Getting Started with Playwright Testing",
-      excerpt: "Learn the fundamentals of automated testing with Playwright and how to set up your first test suite.",
-      date: "2024-01-15",
-      readTime: "5 min read"
-    },
-    {
-      id: 2,
-      title: "Best Practices for API Testing",
-      excerpt: "Discover essential strategies for testing REST APIs effectively and avoiding common pitfalls.",
-      date: "2024-01-10",
-      readTime: "7 min read"
-    },
-    {
-      id: 3,
-      title: "Test Automation in CI/CD Pipelines",
-      excerpt: "Integrate automated tests into your continuous integration workflow for better quality assurance.",
-      date: "2024-01-05",
-      readTime: "6 min read"
-    }
-  ]
 
   return (
     <div className="space-y-12">
