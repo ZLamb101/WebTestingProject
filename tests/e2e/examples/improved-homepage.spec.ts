@@ -1,7 +1,7 @@
 // Example of improved test using helpers and constants
 import { test, expect } from '@playwright/test'
-import { TestHelpers } from './utils/test-helpers'
-import { TEST_DATA } from './utils/test-data'
+import { TestHelpers } from '../utils/test-helpers'
+import { TEST_DATA } from '../utils/test-data'
 
 test.describe('Homepage - Improved', () => {
   let helpers: TestHelpers

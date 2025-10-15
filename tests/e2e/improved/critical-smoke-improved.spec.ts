@@ -27,8 +27,8 @@ test.describe('Critical Smoke Tests - Improved @critical', () => {
     
     // Critical: Navigation works
     await homePage.expectNavigationVisible()
-    await homePage.postsNavLink.toBeVisible()
-    await homePage.projectsNavLink.toBeVisible()
+    await expect(homePage.postsNavLink).toBeVisible()
+    await expect(homePage.projectsNavLink).toBeVisible()
     
     // Critical: Core content sections
     await homePage.expectAboutSectionVisible()

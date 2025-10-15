@@ -33,7 +33,7 @@ export class TestingStrategyPage extends BasePage {
   }
 
   get preReleaseCategory(): Locator {
-    return this.locator('h4', { hasText: 'Pre-Release' })
+    return this.page.locator('h4', { hasText: 'Pre-Release' })
   }
 
   get postReleaseCategory(): Locator {
