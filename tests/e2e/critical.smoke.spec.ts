@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('Critical Smoke Tests', () => {
+test.describe('Critical Smoke Tests @critical', () => {
   test('should load homepage and display core content', async ({ page }) => {
     await page.goto('/')
     

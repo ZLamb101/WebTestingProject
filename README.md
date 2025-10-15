@@ -13,6 +13,7 @@ A modern, responsive blog website built with React, Vite, TypeScript, and Tailwi
 - **Fast Development**: Vite for lightning-fast hot module replacement
 - **Comprehensive Testing**: 97.63% code coverage with 44 unit/component tests
 - **E2E Testing**: 184/185 E2E tests passing (99.5% success rate) across 5 browsers
+- **Smart CI**: Intelligent test selection based on changed files (60% faster for docs/config changes)
 
 ## 📁 Project Structure
 
@@ -67,42 +68,6 @@ npm run dev
 
 4. Open your browser and visit `http://localhost:5173`
 
-## 🧪 Testing
-
-This project includes a comprehensive testing suite with excellent coverage:
-
-### Test Coverage
-- **Unit/Component Tests**: 97.63% code coverage
-- **E2E Tests**: 184/185 tests passing (99.5% success rate)
-- **Total Tests**: 229 tests across unit, component, and E2E
-
-### Test Commands
-```bash
-# Run unit tests with coverage
-npm run test:coverage
-
-# Run E2E tests
-npm run test:e2e
-
-# Run E2E tests with UI
-npm run test:e2e:ui
-
-# Run all tests
-npm run test:all
-```
-
-### Testing Tools
-- **Vitest**: Fast unit testing with Vite integration
-- **React Testing Library**: Component testing utilities
-- **Playwright**: Cross-browser E2E testing
-- **V8 Coverage**: Native coverage reporting
-
-### Browser Support
-- ✅ Chromium
-- ✅ Firefox  
-- ✅ WebKit (Safari)
-- ✅ Mobile Chrome
-- ✅ Mobile Safari
 
 ## 📝 Available Scripts
 
@@ -202,6 +167,16 @@ src/utils           |   100   |   100    |   100   |   100
 src/data            |   100   |   100    |   100   |   100
 ```
 
+### **Smart CI Testing**
+Our CI pipeline uses intelligent test selection and tagging to optimize build times:
+
+- **Critical Tests**: Always run first with @critical tag (fail fast)
+- **Full Test Suite**: Comprehensive coverage for all changes
+- **Browser Coverage**: Chromium, Firefox, Edge (WebKit local only)
+- **Test Tagging**: @critical, @smoke, @integration, @performance, @accessibility
+
+See [Smart Test Selection](docs/smart-test-selection.md) and [Test Tagging Strategy](docs/test-tagging-strategy.md) for details.
+
 ### **Testing Best Practices**
 - ✅ **Behavior-driven testing** - Tests what users see and do
 - ✅ **Semantic queries** - Uses `getByRole`, `getByText` for stability
@@ -210,6 +185,7 @@ src/data            |   100   |   100    |   100   |   100
 - ✅ **Accessibility testing** - Proper roles and labels
 - ✅ **Cross-browser testing** - Ensures compatibility across browsers
 - ✅ **Responsive testing** - Validates mobile and desktop layouts
+- ✅ **Smart CI** - Intelligent test selection based on file changes
 
 ### **Test Structure**
 ```
