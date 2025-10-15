@@ -30,6 +30,15 @@ jobs:
           node-version: '20'
           cache: 'npm'
           
+      - name: Cache Playwright browsers
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+          
       - name: Install dependencies
         run: npm ci
         
@@ -37,7 +46,17 @@ jobs:
         run: npm run test:coverage
         
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: |
+          # Only install if not cached
+          if [ ! -d ~/.cache/ms-playwright ]; then
+            echo "Installing Playwright browsers..."
+            npx playwright install --with-deps chromium firefox webkit
+          else
+            echo "Playwright browsers already cached, skipping installation"
+          fi
+        
+      - name: Verify Playwright browsers
+        run: npx playwright --version
         
       - name: Run E2E tests
         run: npm run test:e2e
