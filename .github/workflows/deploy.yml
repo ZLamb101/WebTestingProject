@@ -42,10 +42,43 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Run tests with coverage
+      - name: Run unit tests
         run: npm run test:coverage
         
+      - name: Analyze changes for E2E tests
+        id: e2e-needed
+        run: |
+          echo "Analyzing changed files..."
+          git diff --name-only HEAD~1 > changed_files.txt || git ls-files > changed_files.txt
+          echo "Changed files:"
+          cat changed_files.txt
+          
+          # Determine if we need E2E tests
+          if grep -E 'src/components/' changed_files.txt; then
+            echo "Components changed - E2E tests needed"
+            echo "needed=true" >> $GITHUB_OUTPUT
+          elif grep -E 'src/pages/' changed_files.txt; then
+            echo "Pages changed - E2E tests needed"
+            echo "needed=true" >> $GITHUB_OUTPUT
+          elif grep -E 'src/utils/|src/data/' changed_files.txt; then
+            echo "Utilities/data changed - E2E tests needed"
+            echo "needed=true" >> $GITHUB_OUTPUT
+          elif grep -E 'tests/e2e/' changed_files.txt; then
+            echo "E2E tests changed - E2E tests needed"
+            echo "needed=true" >> $GITHUB_OUTPUT
+          elif grep -E 'src/' changed_files.txt; then
+            echo "Source code changed - E2E tests needed"
+            echo "needed=true" >> $GITHUB_OUTPUT
+          elif grep -E '\.(md|json|yml|yaml)$' changed_files.txt; then
+            echo "Config/docs changed - skipping E2E tests"
+            echo "needed=false" >> $GITHUB_OUTPUT
+          else
+            echo "No significant changes - skipping E2E tests"
+            echo "needed=false" >> $GITHUB_OUTPUT
+          fi
+        
       - name: Install Playwright browsers
+        if: steps.e2e-needed.outputs.needed == 'true'
         run: |
           # Only install if not cached
           if [ ! -d ~/.cache/ms-playwright ]; then
@@ -57,12 +90,15 @@ jobs:
           fi
         
       - name: Verify Playwright browsers
+        if: steps.e2e-needed.outputs.needed == 'true'
         run: npx playwright --version
         
       - name: Run E2E tests
+        if: steps.e2e-needed.outputs.needed == 'true'
         run: npm run test:e2e
         env:
           CI: true
+        
         
       - name: Build
         run: npm run build

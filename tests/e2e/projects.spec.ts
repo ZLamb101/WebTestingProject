@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('Projects', () => {
-  test('should display all projects', async ({ page }) => {
+  test('should display all projects @critical', async ({ page }) => {
     await page.goto('/')
     await page.click('text=View Projects')
     

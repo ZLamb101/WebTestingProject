@@ -168,15 +168,14 @@ src/data            |   100   |   100    |   100   |   100
 ```
 
 ### **Smart CI Testing**
-Our CI pipeline uses intelligent test selection to optimize build times:
+Our CI pipeline uses intelligent test selection and tagging to optimize build times:
 
-- **Config/Docs Changes**: Unit tests only (~60% faster)
-- **Component Changes**: Unit + Component + E2E tests
-- **Page Changes**: Unit + Component + E2E tests
-- **Utility Changes**: Unit + E2E tests
-- **E2E Test Changes**: Full test suite
+- **Critical Tests**: Always run first with @critical tag (fail fast)
+- **Full Test Suite**: Comprehensive coverage for all changes
+- **Browser Coverage**: Chromium, Firefox, Edge (WebKit local only)
+- **Test Tagging**: @critical, @smoke, @integration, @performance, @accessibility
 
-See [Smart Test Selection Documentation](docs/smart-test-selection.md) for details.
+See [Smart Test Selection](docs/smart-test-selection.md) and [Test Tagging Strategy](docs/test-tagging-strategy.md) for details.
 
 ### **Testing Best Practices**
 - ✅ **Behavior-driven testing** - Tests what users see and do

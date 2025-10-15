@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 
 test.describe('Homepage', () => {
-  test('should display homepage content correctly', async ({ page }) => {
+  test('should display homepage content correctly @critical', async ({ page }) => {
     await page.goto('/')
     
     // Check main heading
