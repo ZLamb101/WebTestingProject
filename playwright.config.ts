@@ -57,6 +57,13 @@ export default defineConfig({
       testMatch: /.*\.(smoke|critical)\.spec\.ts/,
     }]),
 
+    /* Microsoft Edge - runs in both CI and local */
+    {
+      name: 'Microsoft Edge',
+      use: { ...devices['Desktop Edge'], channel: 'msedge' },
+      testMatch: /.*\.(smoke|critical)\.spec\.ts/,
+    },
+
     /* Mobile testing for responsive tests only */
     {
       name: 'Mobile Chrome',
