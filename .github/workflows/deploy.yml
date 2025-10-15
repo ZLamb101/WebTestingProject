@@ -46,7 +46,19 @@ jobs:
         id: test-scope
         run: |
           echo "Analyzing changed files..."
-          git diff --name-only HEAD~1 > changed_files.txt
+          
+          # Get changed files using GitHub's context
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            # For PRs, compare with base branch
+            git diff --name-only origin/${{ github.base_ref }}...HEAD > changed_files.txt
+          elif [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            # For pushes, compare with previous commit
+            git diff --name-only ${{ github.event.before }}...HEAD > changed_files.txt
+          else
+            # Fallback: get all tracked files
+            git ls-files > changed_files.txt
+          fi
+          
           echo "Changed files:"
           cat changed_files.txt
           
