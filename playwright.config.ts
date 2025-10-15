@@ -50,11 +50,12 @@ export default defineConfig({
       testMatch: /.*\.(smoke|critical)\.spec\.ts/,
     },
 
-    {
+    // Skip WebKit in CI due to system dependency issues
+    ...(process.env.CI ? [] : [{
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
       testMatch: /.*\.(smoke|critical)\.spec\.ts/,
-    },
+    }]),
 
     /* Mobile testing for responsive tests only */
     {
@@ -62,11 +63,12 @@ export default defineConfig({
       use: { ...devices['Pixel 5'] },
       testMatch: /.*\.(responsive|mobile)\.spec\.ts/,
     },
-    {
+    // Skip Mobile Safari in CI due to WebKit dependency issues
+    ...(process.env.CI ? [] : [{
       name: 'Mobile Safari',
       use: { ...devices['iPhone 12'] },
       testMatch: /.*\.(responsive|mobile)\.spec\.ts/,
-    },
+    }]),
 
     /* Test against branded browsers. */
     // {

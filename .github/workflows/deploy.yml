@@ -50,7 +50,8 @@ jobs:
           # Only install if not cached
           if [ ! -d ~/.cache/ms-playwright ]; then
             echo "Installing Playwright browsers..."
-            npx playwright install --with-deps chromium firefox webkit
+            # Install only browsers we'll use in CI (skip WebKit due to dependency issues)
+            npx playwright install --with-deps chromium firefox
           else
             echo "Playwright browsers already cached, skipping installation"
           fi
