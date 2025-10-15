@@ -6,9 +6,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   base: '/WebTestingProject/',
-  server: {
-    historyApiFallback: true,
-  },
   test: {
     globals: true,
     environment: 'happy-dom',
