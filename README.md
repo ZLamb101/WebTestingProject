@@ -115,22 +115,34 @@ The project uses Tailwind CSS. You can:
 This project features a comprehensive testing suite with **97.63% code coverage**:
 
 ### **Test Suite Overview**
-- **44 tests** across 4 test files
+- **81+ tests** across multiple test files
 - **Unit Tests**: 19 tests covering utility functions (100% coverage)
 - **Component Tests**: 12 tests covering React components (98%+ coverage)  
 - **Integration Tests**: 13 tests covering app routing and navigation
+- **E2E Tests**: 37 tests covering cross-browser functionality across 7 test files
 
 ### **Testing Tools**
 - **Vitest** - Fast unit and component testing with Vite integration
 - **React Testing Library** - Component testing utilities
+- **Playwright** - Cross-browser E2E testing
 - **happy-dom** - Lightweight DOM environment for testing
 - **@testing-library/user-event** - Realistic user interaction simulation
 
 ### **Test Scripts**
 ```bash
+# Unit and component tests
 npm run test          # Run all tests
 npm run test:coverage # Run tests with coverage report
 npm run test:ui       # Run tests with UI interface
+
+# E2E tests
+npm run test:e2e         # Run E2E tests
+npm run test:e2e:ui      # Run E2E tests with UI
+npm run test:e2e:headed  # Run E2E tests in headed mode
+npm run test:e2e:debug   # Run E2E tests in debug mode
+
+# All tests
+npm run test:all         # Run unit + E2E tests
 ```
 
 ### **Coverage Report**
@@ -150,9 +162,76 @@ src/data            |   100   |   100    |   100   |   100
 - ✅ **Factory functions** - Reusable test data creation
 - ✅ **Consolidated tests** - Complete user workflows
 - ✅ **Accessibility testing** - Proper roles and labels
+- ✅ **Cross-browser testing** - Ensures compatibility across browsers
+- ✅ **Responsive testing** - Validates mobile and desktop layouts
+
+### **Test Structure**
+```
+tests/
+├── e2e/                    # End-to-end tests (37 tests)
+│   ├── basic-navigation.spec.ts    # 4 tests
+│   ├── navigation.spec.ts          # 4 tests
+│   ├── homepage.spec.ts            # 6 tests
+│   ├── blog-posts.spec.ts          # 4 tests
+│   ├── projects.spec.ts            # 5 tests
+│   ├── testing-strategy.spec.ts    # 7 tests
+│   └── responsive.spec.ts          # 7 tests
+└── src/                    # Unit and component tests (44 tests)
+    ├── components/
+    │   ├── Layout.test.tsx         # 5 tests
+    │   └── TestingChecklist.test.tsx # 7 tests
+    ├── pages/
+    ├── utils/
+    │   └── helpers.test.ts         # 19 tests
+    └── App.test.tsx                # 13 tests
+```
+
+### **Test Results & Debugging**
+
+When tests fail, Playwright automatically generates helpful debugging artifacts:
+
+#### **Test Results Location**
+```
+test-results/
+├── playwright-report/          # HTML test report
+├── results.json               # JSON test results
+├── results.xml                # JUnit test results
+└── [test-name]-[browser]/      # Individual test failures
+    ├── test-failed-1.png      # Screenshot at failure
+    ├── video.webm            # Video recording
+    └── error-context.md      # Error details
+```
+
+#### **Viewing Test Results**
+```bash
+# Open HTML report in browser
+npx playwright show-report
+
+# View specific test results
+npx playwright show-report test-results/playwright-report/index.html
+```
+
+#### **Debugging Failed Tests**
+```bash
+# Run specific test in debug mode
+npm run test:e2e:debug -- --grep="should load homepage"
+
+# Run tests in headed mode to see browser
+npm run test:e2e:headed -- --grep="navigation"
+
+# Run single browser for faster debugging
+npx playwright test --project=chromium
+```
+
+#### **Common Test Artifacts**
+- **Screenshots**: Captured at the moment of failure
+- **Videos**: Full test execution recording
+- **Traces**: Step-by-step test execution (when enabled)
+- **Console Logs**: Browser console output during tests
+- **Network Logs**: HTTP requests/responses (when enabled)
 
 ### **Future Testing Plans**
-- [ ] E2E tests with Playwright
+- [x] E2E tests with Playwright ✅
 - [ ] Visual regression testing
 - [ ] Accessibility testing automation
 - [ ] Performance testing
