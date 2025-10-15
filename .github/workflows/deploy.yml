@@ -42,88 +42,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Determine test scope
-        id: test-scope
-        run: |
-          echo "Analyzing changed files..."
-          
-          # Get changed files using GitHub's context
-          if [ "${{ github.event_name }}" = "pull_request" ]; then
-            # For PRs, compare with base branch
-            git diff --name-only origin/${{ github.base_ref }}...HEAD > changed_files.txt
-          elif [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
-            # For pushes, compare with previous commit
-            git diff --name-only ${{ github.event.before }}...HEAD > changed_files.txt
-          else
-            # Fallback: get all tracked files
-            git ls-files > changed_files.txt
-          fi
-          
-          echo "Changed files:"
-          cat changed_files.txt
-          
-          # Determine test scope based on changed files
-          if grep -E 'tests/e2e/' changed_files.txt; then
-            echo "E2E tests changed - running full test suite"
-            echo "scope=all" >> $GITHUB_OUTPUT
-          elif grep -E 'src/components/' changed_files.txt; then
-            echo "Components changed - running component + E2E tests"
-            echo "scope=component-e2e" >> $GITHUB_OUTPUT
-          elif grep -E 'src/pages/' changed_files.txt; then
-            echo "Pages changed - running page + E2E tests"
-            echo "scope=page-e2e" >> $GITHUB_OUTPUT
-          elif grep -E 'src/utils/|src/data/' changed_files.txt; then
-            echo "Utilities/data changed - running unit + E2E tests"
-            echo "scope=unit-e2e" >> $GITHUB_OUTPUT
-          elif grep -E 'src/' changed_files.txt; then
-            echo "Source code changed - running full test suite"
-            echo "scope=all" >> $GITHUB_OUTPUT
-          elif grep -E '\.(json|yml|yaml|md)$' changed_files.txt; then
-            echo "Config/docs changed - running unit tests only"
-            echo "scope=unit" >> $GITHUB_OUTPUT
-          else
-            echo "No significant changes - running unit tests only"
-            echo "scope=unit" >> $GITHUB_OUTPUT
-          fi
-          
-          echo "Test scope determined: ${{ steps.test-scope.outputs.scope }}"
+      - name: Run tests with coverage
+        run: npm run test:coverage
         
-      - name: Run tests based on scope
-        run: |
-          case "${{ steps.test-scope.outputs.scope }}" in
-            "all")
-              echo "Running full test suite..."
-              npm run test:coverage
-              npm run test:e2e
-              ;;
-            "component-e2e")
-              echo "Running component + E2E tests..."
-              npm run test:coverage
-              npm run test:e2e
-              ;;
-            "page-e2e")
-              echo "Running page + E2E tests..."
-              npm run test:coverage
-              npm run test:e2e
-              ;;
-            "unit-e2e")
-              echo "Running unit + E2E tests..."
-              npm run test:coverage
-              npm run test:e2e
-              ;;
-            "unit")
-              echo "Running unit tests only..."
-              npm run test:coverage
-              ;;
-            *)
-              echo "Unknown scope, running full test suite..."
-              npm run test:coverage
-              npm run test:e2e
-              ;;
-          esac
-        
-      - name: Install Playwright browsers (if needed)
-        if: steps.test-scope.outputs.scope != 'unit'
+      - name: Install Playwright browsers
         run: |
           # Only install if not cached
           if [ ! -d ~/.cache/ms-playwright ]; then
@@ -133,10 +55,13 @@ jobs:
             echo "Playwright browsers already cached, skipping installation"
           fi
         
-      - name: Verify Playwright browsers (if needed)
-        if: steps.test-scope.outputs.scope != 'unit'
+      - name: Verify Playwright browsers
         run: npx playwright --version
         
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          CI: true
         
       - name: Build
         run: npm run build
