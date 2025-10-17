@@ -37,6 +37,7 @@ export const TEST_DATA = {
   },
 
   projects: {
+    expectedCount: 4, // Based on projects in content.ts
     firstProject: {
       status: 'Completed',
       technologies: ['Playwright', 'TypeScript'],

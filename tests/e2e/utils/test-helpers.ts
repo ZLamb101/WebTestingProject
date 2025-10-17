@@ -1,5 +1,5 @@
 // tests/e2e/utils/test-helpers.ts
-import { Page, Locator } from '@playwright/test'
+import { Page, Locator, expect } from '@playwright/test'
 
 export class TestHelpers {
   constructor(private page: Page) {}
@@ -31,21 +31,21 @@ export class TestHelpers {
 
   // Content verification helpers
   async expectPageTitle(expectedTitle: string) {
-    await this.page.locator('h1').toContainText(expectedTitle)
+    await expect(this.page.locator('h1')).toContainText(expectedTitle)
   }
 
   async expectSectionVisible(sectionText: string) {
-    await this.page.locator('h2', { hasText: sectionText }).toBeVisible()
+    await expect(this.page.locator('h2', { hasText: sectionText })).toBeVisible()
   }
 
   async expectRecentPostsCount(expectedCount: number) {
     const posts = this.page.locator('.grid > article')
-    await posts.toHaveCount(expectedCount)
+    await expect(posts).toHaveCount(expectedCount)
   }
 
   async expectProjectsCount(expectedCount: number) {
     const projects = this.page.locator('.grid > div')
-    await projects.toHaveCount(expectedCount)
+    await expect(projects).toHaveCount(expectedCount)
   }
 
   // Responsive testing helpers
@@ -60,11 +60,11 @@ export class TestHelpers {
   // Navigation state helpers
   async expectActiveNavLink(navText: string) {
     const link = this.page.locator(`nav a:has-text("${navText}")`)
-    await link.toHaveClass(/text-blue-600/)
+    await expect(link).toHaveClass(/text-blue-600/)
   }
 
   async expectInactiveNavLink(navText: string) {
     const link = this.page.locator(`nav a:has-text("${navText}")`)
-    await link.toHaveClass(/text-gray-700/)
+    await expect(link).toHaveClass(/text-gray-700/)
   }
 }
